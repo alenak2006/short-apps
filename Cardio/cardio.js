@@ -19,7 +19,7 @@ const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
 const inventorsBorn1500 = inventors.filter((inventor) => inventor.year >= 1500 && inventor.year < 1600);
-console.log(inventorsBorn1500);
+console.table(inventorsBorn1500);
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors' first and last names
@@ -29,8 +29,7 @@ console.log(inventorsNames);
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
 const inventorsBorn1500Sorted = inventors.sort((prev, curr) => prev.year - curr.year);
-
-console.log(inventorsBorn1500Sorted);
+console.table(inventorsBorn1500Sorted);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
@@ -56,10 +55,11 @@ console.log(boulevardsWithDe);
 // 7. sort Exercise
 // Sort the people alphabetically by last name
 
-const inventorsSortedByName = inventors.sort((prev, curr) => {
-    if (prev.last < curr.last) return -1;
-    else return 1;
-})
+const inventorsSortedByName = people.sort((prev, curr) => {
+    const [plast, pfirst] = prev.split(',');
+    const [clast, cfirst] = curr.split(',');
+    return pfirst > cfirst ? 1 : -1;
+});
 console.log(inventorsSortedByName);
 
 // 8. Reduce Exercise
@@ -67,7 +67,6 @@ console.log(inventorsSortedByName);
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
 const sum = {};
 
-debugger;
 for (let index = 0; index < data.length; index++) {
 
     if (!sum[data[index]]) {
@@ -79,3 +78,13 @@ for (let index = 0; index < data.length; index++) {
 
 }
 console.log(sum);
+
+const sums = data.reduce((obj, item) => {
+    if (!obj[item]) {
+        obj[item] = 0;
+    }
+    obj[item]++;
+    return obj;
+}, {})
+
+console.log(sums);
