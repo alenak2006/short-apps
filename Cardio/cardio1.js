@@ -47,13 +47,30 @@ const allYearsLived = inventors.reduce((acc, inventor) => {
 
 // 5. Sort the inventors by years lived
 
+// const inventorsByAge = inventors
+//     .map((inventor) => Object.assign(inventor, { age: inventor.passed - inventor.year }))
+//     .sort((prev, curr) => {
+//         return (prev.age < curr.age) ? -1 : 1
+//     })
+
+
+// const inventorsByAge = inventors
+//     .map((inventor) => {
+//         inventor.age = inventor.passed - inventor.year;
+//         return inventor;
+//     })
+//     .sort((prev, curr) => {
+//         return (prev.age > curr.age) ? -1 : 1
+//     })
+
 const inventorsByAge = inventors
-    .map((inventor) => Object.assign(inventor, { age: inventor.passed - inventor.year }))
+    .map((inventor) => ({ ...inventor, age: inventor.passed - inventor.year }))
     .sort((prev, curr) => {
         return (prev.age < curr.age) ? -1 : 1
     })
 
-//console.table(inventorsByAge);
+
+console.table(inventorsByAge);
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -82,3 +99,29 @@ const totals = data.reduce((obj, item) => {
 }, {})
 
 console.log(totals);
+
+//create function some
+
+[].__proto__.some = function (cb) {
+    for (let index = 0; index < this.length; index++) {
+        let isValid = cb(this[index], index, this);
+        if (isValid) {
+            return true;
+        }
+
+    }
+    return false;
+}
+
+let arr = [{ name: 'pete', age: 12 }, { name: 'ada', age: 67 }, { name: 'harriot', age: 54 }];
+
+[].__proto__.every = function (cb) {
+    for (let index = 0; index < this.length; index++) {
+        let isValid = cb(this[index], index, this);
+        if (!isValid) {
+            return false;
+        }
+
+    }
+    return true;
+}
